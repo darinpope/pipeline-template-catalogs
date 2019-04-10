@@ -1,0 +1,10 @@
+type: pipeline-template
+version: 1.0
+
+name: Spring Boot Gradle Template
+description: Spring Boot Gradle Template
+parameters:
+  - name: previewEnvHostname
+    displayName: Preview env hostname
+  - name: emailRecipient
+    displayName: Email address for build notifications
