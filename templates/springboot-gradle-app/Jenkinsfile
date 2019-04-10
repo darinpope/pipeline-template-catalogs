@@ -2,9 +2,11 @@ pipeline {
     agent any
     stages {
         stage('Build') {
-          echo "${previewEnvHostname}"
-          echo "${emailRecipient}"
-          sh "./graldew clean installDist"
+          steps {
+            echo "${previewEnvHostname}"
+            echo "${emailRecipient}"
+            sh "./graldew clean installDist"
+          }
         }
     }
 }

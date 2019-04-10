@@ -2,9 +2,11 @@ pipeline {
     agent any
     stages {
         stage('Build') {
-          echo "${previewEnvHostname}"
-          echo "${emailRecipient}"
-          sh "./mvnw clean install"
+          steps {
+            echo "${previewEnvHostname}"
+            echo "${emailRecipient}"
+            sh "./mvnw clean install"
+          }
         }
     }
 }

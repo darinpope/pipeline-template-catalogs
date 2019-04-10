@@ -2,8 +2,10 @@ pipeline {
     agent any
     stages {
         stage('Build') {
-          echo "${previewEnvHostname}"
-          echo "${emailRecipient}"
+          steps {
+            echo "${previewEnvHostname}"
+            echo "${emailRecipient}"
+          }
         }
     }
 }
