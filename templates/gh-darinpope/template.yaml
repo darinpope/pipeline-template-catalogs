@@ -1,5 +1,13 @@
+version: 1
+type: pipeline-template
+name: Multibranch from the darinpope owner
+templateType: multibranch
+parameters:
+  - name: repoUrl
+    type: string
+    displayName: Repository
 multibranch:
   branchSource:
     github:
-      repoOwner: myCompany
-      repository: ${repoName}
+      repoOwner: darinpope
+      repository: ${repoUrl}
