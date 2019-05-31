@@ -1,0 +1,5 @@
+multibranch:
+  branchSource:
+    github:
+      repoOwner: myCompany
+      repository: ${repoName}
