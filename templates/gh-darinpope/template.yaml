@@ -1,13 +1,11 @@
-version: 1
+name: A Multibranch Template with Orphaned Items
 type: pipeline-template
-name: Multibranch from the darinpope owner
-templateType: multibranch
+templateType: MULTIBRANCH
 parameters:
   - name: repoUrl
     type: string
-    displayName: Repository
+    displayName: Repo
 multibranch:
   branchSource:
-    github:
-      repoOwner: darinpope
-      repository: ${repoUrl}
+    git:
+      remote: ${repoUrl}
