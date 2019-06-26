@@ -1,9 +1,11 @@
 pipeline {
   agent any
   stages {
-    stage('hello') {
+    stage('Build') {
       steps {
-        echo "hello"
+        sh """
+          ./mvnw clean install
+        """
       }
     }
   }
