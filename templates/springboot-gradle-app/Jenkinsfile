@@ -1,12 +1,27 @@
+
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+            label "sbgr2"
+            defaultContainer "jnlp"
+            yamlFile "containers.yml"
+        }
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+        durabilityHint('PERFORMANCE_OPTIMIZED')
+    }
     stages {
-        stage('Build') {
-          steps {
-            echo "${previewEnvHostname}"
-            echo "${emailRecipient}"
-            sh "./graldew clean installDist"
-          }
+        stage("Prepare Build Environment") {
+            steps {
+                container("gradle") {
+                    echo "${previewEnvHostname}"
+                    echo "${emailRecipient}"
+                    sh """
+                        gradle --version
+                    """
+                }
+            }
         }
     }
 }
