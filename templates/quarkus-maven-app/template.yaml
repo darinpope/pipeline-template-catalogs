@@ -9,4 +9,4 @@ parameters:
     defaultValue: foo
   - name: emailRecipient
     displayName: Email address for build notifications
-    defaultvalue: foo@bar.com
+    defaultValue: foo@bar.com
