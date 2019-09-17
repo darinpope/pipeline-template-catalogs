@@ -6,5 +6,7 @@ description: Quarkus Maven Template
 parameters:
   - name: previewEnvHostname
     displayName: Preview env hostname
+    defaultValue: foo
   - name: emailRecipient
     displayName: Email address for build notifications
+    defaultvalue: foo@bar.com
