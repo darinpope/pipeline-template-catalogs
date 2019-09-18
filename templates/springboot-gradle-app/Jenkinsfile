@@ -10,7 +10,7 @@ kind: Pod
 spec:
   containers:
   - name: gradle
-    image: gradle:alpine
+    image: gradle:latest
     command:
     - cat
     tty: true
