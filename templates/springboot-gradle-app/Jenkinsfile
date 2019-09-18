@@ -4,7 +4,17 @@ pipeline {
         kubernetes {
             label "sbgr2"
             defaultContainer "jnlp"
-            yamlFile "containers.yml"
+            yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: gradle
+    image: gradle:alpine
+    command:
+    - cat
+    tty: true
+"""
         }
     }
     options {
