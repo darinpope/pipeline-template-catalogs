@@ -1,12 +1,14 @@
 pipeline {
-    agent any
+    agent { label 'cloudbees-core' }
     stages {
         stage('Build') {
-          steps {
-            echo "${previewEnvHostname}"
-            echo "${emailRecipient}"
-            sh "./mvn clean install"
-          }
+            steps {
+                container('maven') {
+                    echo "${previewEnvHostname}"
+                    echo "${emailRecipient}"
+                    sh "./mvn clean install"
+                }
+            }
         }
     }
 }
