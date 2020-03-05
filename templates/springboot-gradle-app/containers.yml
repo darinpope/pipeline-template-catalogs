@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: gradle
-    image: gradle:alpine
-    command:
-    - cat
-    tty: true
