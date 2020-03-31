@@ -1,0 +1,20 @@
+type: pipeline-template
+version: 1
+
+name: Multibranch Git Template
+description: Multibranch Git Template
+templateType: MULTIBRANCH
+parameters:
+  - name: repoUrl
+    type: string
+    displayName: Repo URL
+  - name: gitCredentials
+    displayName: Git Credentials
+    type: credentials
+multibranch:
+  branchSource:
+    git:
+      remote: ${repoUrl}
+      credentialsId: ${gitCredentials}
+  orphanedItemStrategy:
+    numToKeep: 20
