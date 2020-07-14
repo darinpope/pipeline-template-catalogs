@@ -10,3 +10,4 @@ multibranch:
   branchSource:
     git:
       remote: ${repoUrl}
+  markerFile: build.gradle
