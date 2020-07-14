@@ -1,5 +1,21 @@
 pipeline {
-  agent any
+    agent {
+        kubernetes {
+            label "ghdp2"
+            defaultContainer "jnlp"
+            yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: gradle
+    image: gradle:latest
+    command:
+    - cat
+    tty: true
+"""
+        }
+    }
   stages {
     stage('Build') {
       steps {
