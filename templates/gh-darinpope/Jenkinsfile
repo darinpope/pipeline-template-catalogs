@@ -1,20 +1,11 @@
+def gradle_pod_template = libraryResource 'pod-templates/gradle-template.yaml'
+
 pipeline {
     agent {
         kubernetes {
             label "ghdp2"
             defaultContainer "jnlp"
-            yaml """
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: gradle
-    image: gradle:latest
-    command:
-    - cat
-    tty: true
-"""
-        }
+            yaml gradle_pod_template
     }
   stages {
     stage('Build') {
