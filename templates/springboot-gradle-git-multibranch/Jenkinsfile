@@ -12,7 +12,7 @@ pipeline {
     stage("Build") {
       agent { label "linux" }
       steps {
-        sh "./gradlew clean"
+        sh "./gradlew clean build"
       }
     }
     stage("Security Scan") {
@@ -22,7 +22,10 @@ pipeline {
         branch "main"
       }
       steps {
-        sh "echo snyk"
+        sh '''
+          snyk auth ${SNYK_TOKEN}
+          snyk test --all-sub-projects
+        '''
       }
     }
     stage("Confirm Deploy") {
