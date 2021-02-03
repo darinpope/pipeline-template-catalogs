@@ -11,6 +11,9 @@ pipeline {
   stages {
     stage("Build") {
       agent { label "linux" }
+      when {
+        not { triggeredBy 'BranchIndexingCause' }
+      }
       steps {
         sh "./gradlew clean build"
       }
@@ -20,6 +23,7 @@ pipeline {
       when {
         beforeAgent true
         branch "main"
+        not { triggeredBy 'BranchIndexingCause' }
       }
       steps {
         sh '''
@@ -32,6 +36,7 @@ pipeline {
       agent none
       when {
         branch "main"
+        not { triggeredBy 'BranchIndexingCause' }
       }
       options {
         timeout(time: 12, unit: "HOURS")
@@ -45,6 +50,7 @@ pipeline {
       when {
         beforeAgent true
         branch "main"
+        not { triggeredBy 'BranchIndexingCause' }
       }
       steps {
         echo "do the deploy"
