@@ -1,0 +1,16 @@
+type: pipeline-template
+version: 1
+
+name: Spring Boot Gradle Git Pipeline
+description: Spring Boot Gradle Git Pipeline
+parameters:
+  - name: repoUrl
+    type: string
+    displayName: Repository URL
+  - name: branchName
+    displayName: Branch Name
+    type: string
+    default: main
+  - name: gitCredentials
+    displayName: Git Credentials
+    type: credentials

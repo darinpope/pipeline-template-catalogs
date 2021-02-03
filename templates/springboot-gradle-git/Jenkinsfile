@@ -1,0 +1,38 @@
+pipeline {
+  agent { label "linux" }
+  options {
+    durabilityHint("PERFORMANCE_OPTIMIZED")
+    timeout(time: 3, unit: "DAYS")
+    disableConcurrentBuilds()
+    skipDefaultCheckout true
+  }
+  environment {
+    SNYK_TOKEN = credentials("snyk-token")
+  }
+  stages {
+    stage("Checkout") {
+      steps {
+        checkout([$class: "GitSCM", 
+          branches: [[name: "${branchName}"]], 
+          doGenerateSubmoduleConfigurations: false, 
+          extensions: [], 
+          submoduleCfg: [], 
+          userRemoteConfigs: [[credentialsId: "${gitCredentials}", url: "${repoUrl}"]]]
+        )
+      }
+    }
+    stage("Build") {
+      steps {
+        sh "./gradlew clean build"
+      }
+    }
+    stage("Security Scan") {
+      steps {
+        sh '''
+          snyk auth ${SNYK_TOKEN}
+          snyk test --all-sub-projects
+        '''
+      }
+    }
+  }
+}

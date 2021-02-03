@@ -1,0 +1,27 @@
+type: pipeline-template
+version: 1
+
+name: Spring Boot Gradle Git Multibranch Pipeline
+description: Spring Boot Gradle Git Multibranch Pipeline
+templateType: MULTIBRANCH
+parameters:
+  - name: repoUrl
+    type: string
+    displayName: Repository URL
+  - name: gitCredentials
+    displayName: Git Credentials
+    type: credentials
+multibranch:
+  branchSource:
+    git:
+      remote: ${repoUrl}
+      credentialsId: ${gitCredentials}
+    traits:
+      - gitBranchDiscovery
+      - $class: 'CleanAfterCheckoutTrait'
+      - $class: 'CleanBeforeCheckoutTrait'
+      - $class: 'LocalBranchTrait'
+      - headWildcardFilter:
+          includes: main feature-* fix-*
+  orphanedItemStrategy:
+    numToKeep: 10
