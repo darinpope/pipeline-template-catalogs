@@ -10,7 +10,7 @@ parameters:
   - name: branchName
     displayName: Branch Name
     type: string
-    default: main
+    default: "main"
   - name: gitCredentials
     displayName: Git Credentials
     type: credentials
