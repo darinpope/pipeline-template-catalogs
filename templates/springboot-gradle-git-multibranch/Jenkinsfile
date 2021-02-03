@@ -4,6 +4,7 @@ pipeline {
     durabilityHint("PERFORMANCE_OPTIMIZED")
     timeout(time: 3, unit: "DAYS")
     disableConcurrentBuilds()
+    skipDefaultCheckout true
   }
   environment {
     SNYK_TOKEN = credentials("snyk-token")
@@ -16,6 +17,11 @@ pipeline {
         not { triggeredBy 'BranchIndexingCause' }
       }
       stages {
+        stage("Checkout") {
+          steps {
+            checkout scm
+          }
+        }
         stage("Build") {
           steps {
             sh "./gradlew clean build"
