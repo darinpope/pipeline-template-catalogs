@@ -9,27 +9,29 @@ pipeline {
     SNYK_TOKEN = credentials("snyk-token")
   }
   stages {
-    stage("Build") {
-      agent { label "linux" }
-      when {
-        not { triggeredBy 'BranchIndexingCause' }
-      }
-      steps {
-        sh "./gradlew clean build"
-      }
-    }
-    stage("Security Scan") {
+    stage("build and scan") {
       agent { label "linux" }
       when {
         beforeAgent true
-        branch "main"
         not { triggeredBy 'BranchIndexingCause' }
       }
-      steps {
-        sh '''
-          snyk auth ${SNYK_TOKEN}
-          snyk test --all-sub-projects
-        '''
+      stages {
+        stage("Build") {
+          steps {
+            sh "./gradlew clean build"
+          }
+        }
+        stage("Security Scan") {
+          when {
+            branch "main"
+          }
+          steps {
+            sh '''
+              snyk auth ${SNYK_TOKEN}
+              snyk test --all-sub-projects
+            '''
+          }
+        }
       }
     }
     stage("Confirm Deploy") {
