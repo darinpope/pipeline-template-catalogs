@@ -26,13 +26,5 @@ pipeline {
         sh "./gradlew clean build"
       }
     }
-    stage("Security Scan") {
-      steps {
-        sh '''
-          snyk auth ${SNYK_TOKEN}
-          snyk test --all-sub-projects
-        '''
-      }
-    }
   }
 }
