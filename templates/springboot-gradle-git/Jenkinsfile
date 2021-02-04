@@ -6,9 +6,6 @@ pipeline {
     disableConcurrentBuilds()
     skipDefaultCheckout true
   }
-  environment {
-    SNYK_TOKEN = credentials("snyk-token")
-  }
   stages {
     stage("Checkout") {
       steps {
